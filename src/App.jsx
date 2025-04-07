@@ -1,37 +1,37 @@
-// src/App.js
-import React, { useEffect, useState } from 'react';
-import { auth, provider, signInWithPopup, signOut } from './firebase';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import { useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase";
 
 function App() {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    auth.onAuthStateChanged((currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      setLoading(false);
     });
+    return () => unsubscribe();
   }, []);
 
-  const handleLogin = async () => {
-    await signInWithPopup(auth, provider);
-  };
-
-  const handleLogout = async () => {
-    await signOut(auth);
-  };
+  if (loading) return <div>Loading...</div>;
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '3rem' }}>
-      {user ? (
-        <>
-          <h2>Welcome, {user.displayName}</h2>
-          <img src={user.photoURL} alt="avatar" width={60} style={{ borderRadius: '50%' }} />
-          <br />
-          <button onClick={handleLogout}>Logout</button>
-        </>
-      ) : (
-        <button onClick={handleLogin}>Sign in with Google</button>
-      )}
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={user ? <Home /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/login"
+          element={!user ? <Login /> : <Navigate to="/" />}
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
