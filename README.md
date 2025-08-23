@@ -7,11 +7,12 @@ Implements all core features of modern chat apps (authentication, real-time mess
 - User authentication (JWT, cookies, sessions)
 - Secure APIs with authorization checks
 - MongoDB schema design for users & messages
+- File sharing (images, docs)  
 - Backend completed with proper folder structure
 - Frontend: Login & Signup pages done, rest in progress
 
 ## 📂 Tech Stack
-- **Frontend:** React.js, Bootstrap/Tailwind  
+- **Frontend:** React.js, Tailwind  
 - **Backend:** Node.js, Express.js  
 - **Database:** MongoDB  
 - **Auth & Security:** JWT, cookies, session management  
@@ -21,8 +22,7 @@ Implements all core features of modern chat apps (authentication, real-time mess
 ⚡ Frontend development in progress (paused due to internship work)
 
 ## 🛠️ Future Plans
-- Real-time messaging with Socket.IO  
-- File sharing (images, docs)  
+- Further Implementation of group chats, group calls, user to user call etc.
 - Dark mode UI  
 - Typing indicators & read receipts  
 
