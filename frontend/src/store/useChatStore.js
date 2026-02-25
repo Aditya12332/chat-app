@@ -2,6 +2,7 @@ import { create } from "zustand";
 import toast from "react-hot-toast";
 import { axiosInstance } from "../lib/axios";
 import { useAuthStore } from "./useAuthStore";
+import { useAiStore } from "./useAiStore";
 
 export const useChatStore = create((set, get) => ({
   messages: [],
@@ -64,5 +65,13 @@ export const useChatStore = create((set, get) => ({
     socket.off("newMessage");
   },
 
-  setSelectedUser: (selectedUser) => set({ selectedUser }),
+  setSelectedUser: (selectedUser) => {
+    // When switching conversations, ensure the AI panel is closed
+    // so it only opens when the user explicitly toggles it.
+    const aiStore = useAiStore.getState();
+    if (aiStore && aiStore.closeAiPanel) {
+      aiStore.closeAiPanel();
+    }
+    set({ selectedUser });
+  },
 }));
