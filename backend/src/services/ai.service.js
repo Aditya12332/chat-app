@@ -1,7 +1,7 @@
 import Groq from "groq-sdk";
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
-const MODEL = "compound-beta";
+const MODEL = "groq/compound";
 
 // ── Smart Replies ─────────────────────────────────────────────────────────────
 export async function getSmartReplies(lastMessage, conversationContext = []) {
