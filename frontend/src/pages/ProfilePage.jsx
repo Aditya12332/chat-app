@@ -41,6 +41,8 @@ const ProfilePage = () => {
                     ? authUser.profilePic
                     : "/avatar.png")
                 }
+                alt="Profile Picture"
+                className="w-32 h-32 rounded-full object-cover border-4 border-base-200"
                 onError={(e) => (e.currentTarget.src = "/avatar.png")}
                 />
               <label
